@@ -8,15 +8,47 @@ body {
 header {
    display: flex;
    align-items: center;
-   box-shadow: 0px 0px 10px antiquewhite;
+   box-shadow: 0px 0px 5px rgba(250, 235, 215, 0.712);
+   position: relative;
+}
+
+.headline-logo-wrapper {
+   display: flex;
+   align-items: center;
+   margin-left: 1vw;
+   margin-top: 1vh;
+   margin-bottom: 1vh;
+   justify-content: start;
+}
+
+.input-wrapper {
+   display: flex;
+   width: 100%;
+   justify-content: center;
+   margin-right: 15vw;
+   input {
+      background-color: transparent;
+      border: none;
+      border-radius: 2px;
+      box-shadow: 0px 0px 2px antiquewhite;
+      padding: 1rem 2rem;
+      color: rgba(250, 235, 215, 0.808);
+      font-size: 1.2rem;
+      transition: all 150ms ease-in;
+      &:focus {
+         outline: none;
+         box-shadow: 0px 0px 3px antiquewhite;
+         border-radius: 8px;
+      }
+   }
 }
 
 .content-container {
-   margin-top: 5vw;
+   margin: 5vh 5vw 5vh 5vw;
    display: flex;
    justify-content: center;
    flex-wrap: wrap;
-   gap: 1rem;
+   gap: 3vw 5vh;
 }
 
 .pokemon-card {
@@ -24,9 +56,117 @@ header {
    align-items: center;
    justify-content: center;
    flex-direction: column;
-   padding: 2%;
-   border-radius: 25px;
+   border-radius: 15px;
    width: 20vw;
-   height: 15vh;
-   border: 1px solid white;
+   opacity: 0.85;
+
+   transition: opacity 300ms ease-in-out, transform 100ms ease-in;
+   position: relative;
+   cursor: pointer;
+   &:hover {
+      opacity: 1;
+      transform: scale(105%);
+   }
+   .poke-name {
+      font-weight: bold;
+      width: 100%;
+      text-align: center;
+      padding-bottom: 5%;
+      padding-top: 5%;
+      font-size: 1.5rem;
+   }
+   .poke-pic-wrapper {
+      border: 5px solid rgba(255, 255, 255, 0.301);
+      width: 90%;
+   }
+   .poke-pic {
+      height: 30vh;
+      width: 100%;
+      transition: all 200ms ease-in-out;
+      &:hover {
+         transform: rotate(10deg) scale(110%);
+      }
+   }
+}
+
+.normal {
+   background-color: #a8a878; /* Grau für Normal */
+}
+
+.fire {
+   background-color: #f08030; /* Rot für Feuer */
+}
+
+.water {
+   background-color: #6890f0; /* Blau für Wasser */
+}
+
+.electric {
+   background-color: #f8d030; /* Gelb für Elektro */
+}
+
+.grass {
+   background-color: #78c850; /* Grün für Pflanzen */
+}
+
+.flying {
+   background-color: #a890f0; /* Hellblau für Flug */
+}
+
+.bug {
+   background-color: #a8b820; /* Grün für Käfer */
+}
+
+.poison {
+   background-color: #a040a0; /* Lila für Gift */
+}
+
+.rock {
+   background-color: #b8a038; /* Beige für Gestein */
+}
+
+.ground {
+   background-color: #e0c068; /* Braun für Boden */
+}
+
+.fighting {
+   background-color: #c03028; /* Braun für Kampf */
+}
+
+.ice {
+   background-color: #98d8d8; /* Hellblau für Eis */
+}
+
+.psychic {
+   background-color: #f85888; /* Rosa für Psycho */
+}
+
+.ghost {
+   background-color: #705898; /* Lila für Geist */
+}
+
+.dragon {
+   background-color: #7038f8; /* Violett für Drache */
+}
+
+.fairy {
+   background-color: #ee99ee; /* Hellrosa für Fee */
+}
+
+footer {
+   position: fixed;
+   bottom: 0;
+   left: 0;
+   background-color: #22222260;
+   width: 100%;
+   padding: 1%;
+   font-size: 0.9rem;
+   display: flex;
+   justify-content: space-between;
+   cursor: pointer;
+   a {
+      color: inherit;
+      margin-right: 3vw;
+      text-decoration: none;
+   }
 }
