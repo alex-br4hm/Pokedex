@@ -18,19 +18,35 @@ async function getData(pokeOrder) {
 async function getAllData() {
    for (let i = 1; i <= 151; i++) {
       const data = await getData(i);
+      console.log(data);
       if (data) {
-         let pokeName = data.forms[0].name;
-         let pokePic = data.sprites.front_default;
+         let pokeName = capitalizeFirstLetter(data.forms[0].name);
+         let pokePic = data.sprites.other.dream_world.front_default;
+         // let pokePic = data.sprites.versions.generation-i.red-blue.front_transparent;
+         let pokeType = data.types[0].type.name;
+         // if (data.types[1].type.name != undefined) {
+         //    let pokeType2 = data.types[1].type.name;
+         //    return pokeType2;
+         // }
+
+         // console.log(pokeType2);
          contentContainer.innerHTML += `
-         <div class="pokemon-card">
-         <div>${pokeName}</div>
-         <img src="${pokePic}" alt="">
+         <div class="pokemon-card ${pokeType}"">
+         <div class="poke-name">${pokeName}</div>
+         <div class="poke-pic-wrapper">
+         <img class="poke-pic"src="${pokePic}" alt="">
+         </div>
+         <div>${pokeType} / ${pokeType}</div>
          </div>
          `;
       } else {
          console.log(`Data for Pokémon with order ${i} could not be retrieved.`);
       }
    }
+}
+
+function capitalizeFirstLetter(string) {
+   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 getAllData();
