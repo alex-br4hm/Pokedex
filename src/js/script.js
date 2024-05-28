@@ -31,9 +31,9 @@ async function getAllData() {
 
          // console.log(pokeType2);
          contentContainer.innerHTML += `
-         <div class="pokemon-card ${pokeType}"">
+         <div class="pokemon-card">
          <div class="poke-name">${pokeName}</div>
-         <div class="poke-pic-wrapper">
+         <div class="poke-pic-wrapper ${pokeType}">
          <img class="poke-pic"src="${pokePic}" alt="">
          </div>
          <div>${pokeType} / ${pokeType}</div>

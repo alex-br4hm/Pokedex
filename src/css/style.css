@@ -58,11 +58,11 @@ header {
    flex-direction: column;
    border-radius: 15px;
    width: 20vw;
-   opacity: 0.85;
-
+   opacity: 1;
    transition: opacity 300ms ease-in-out, transform 100ms ease-in;
    position: relative;
    cursor: pointer;
+   border: 3px solid white;
    &:hover {
       opacity: 1;
       transform: scale(105%);
@@ -76,7 +76,7 @@ header {
       font-size: 1.5rem;
    }
    .poke-pic-wrapper {
-      border: 5px solid rgba(255, 255, 255, 0.301);
+      /* border: 5px solid rgba(255, 255, 255, 0.301); */
       width: 90%;
    }
    .poke-pic {
