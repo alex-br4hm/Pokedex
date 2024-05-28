@@ -1,0 +1,32 @@
+body {
+   margin: 0;
+   background-color: #222;
+   color: antiquewhite;
+   font-family: sans-serif;
+}
+
+header {
+   display: flex;
+   align-items: center;
+   box-shadow: 0px 0px 10px antiquewhite;
+}
+
+.content-container {
+   margin-top: 5vw;
+   display: flex;
+   justify-content: center;
+   flex-wrap: wrap;
+   gap: 1rem;
+}
+
+.pokemon-card {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+   padding: 2%;
+   border-radius: 25px;
+   width: 20vw;
+   height: 15vh;
+   border: 1px solid white;
+}
