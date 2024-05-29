@@ -8,7 +8,7 @@
       <link rel="stylesheet" href="./src/css/style.css" />
       <script src="./src/js/script.js" defer></script>
    </head>
-   <body>
+   <body onload="getAllData()">
       <div class="background"><img src="./src/assets/img/bg.png" alt="" /></div>
       <header>
          <div class="headline-logo-wrapper">
@@ -20,6 +20,20 @@
          </div>
       </header>
 
+      <!-- CONTENT -->
+      <div class="pop-up-content d-none" id="popUpContainer">
+         <!-- <div class="poke-pu-wrapper">
+            <img class="close-icon" src="./src/assets/img/close_icon.png" alt="" />
+            <div class="stats">HP: 10</div>
+            <div class="stats">Attack: 100</div>
+            <div class="stats">Defense: 88</div>
+            <div class="stats">Speed: 235</div>
+            <img src="" alt="" />
+            <div class="flavor-text">
+               A strange seed was planted on its back at birth. The plant sprouts and grows with this POKéMON.
+            </div>
+         </div> -->
+      </div>
       <div class="content-container" id="contentContainer"></div>
 
       <footer>
