@@ -63,6 +63,47 @@ header {
    }
 }
 
+/* ----------
+     POPUP 
+---------- */
+
+.pop-up-content {
+   position: fixed;
+   top: 0;
+   height: 100vh;
+   width: 100%;
+   z-index: 999;
+   background-color: #14000d80;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.poke-pu-wrapper {
+   height: 80%;
+   width: 80%;
+   background-color: rgba(0, 0, 0, 0.815);
+   position: relative;
+   border-radius: 15px;
+   .close-icon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 5vh;
+      aspect-ratio: 1/1;
+      filter: invert(0.5);
+      cursor: pointer;
+      transition: filter 100ms ease-in;
+      &:hover {
+         filter: invert(1);
+      }
+   }
+}
+
+/* ----------
+     CARDS 
+---------- */
+
 .content-container {
    margin: 5vh 5vw 5vh 5vw;
    display: flex;
@@ -233,4 +274,8 @@ footer {
          color: #333;
       }
    }
+}
+
+.d-none {
+   display: none !important;
 }
