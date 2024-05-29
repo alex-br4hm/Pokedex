@@ -11,7 +11,7 @@ async function getData(pokeOrder) {
    try {
       const response = await fetch(url);
       if (!response.ok) {
-         throw new Error(`Error: Unable to fetch data. Status code: ${response.status}`);
+         throw new Error(`Error: ${response.status}`);
       }
       const data = await response.json();
       return data;
@@ -27,27 +27,29 @@ async function getAllData() {
       console.log(data);
       if (data) {
          getPokeInformationCard(data);
-         // Determine the format of the ID without converting to a string
-         // Display the Pokémon card with one or two types
-         contentContainer.innerHTML += `
-         <div class="pokemon-card ${pokeType}">
-            <div class="card-name-id-wrapper">
-            <div class="poke-name">${pokeName}</div>
-            <div class="poke-id">${formattedId}</div>
-            </div>
-            <div class="poke-pic-wrapper">
-               <img class="poke-pic" src="${pokePic}" alt="${pokeName}">
-            </div>
-            <div class="poke-type-wrapper">
-               <div class="${pokeType} poke-type">${pokeType}</div>
-               ${pokeType2 ? `<div class="${pokeType2} poke-type">${pokeType2}</div>` : ""}
-            </div>
-         </div>
-         `;
+         contentContainer.innerHTML += `${renderPokeCardsHTML()}`;
       } else {
          console.log(`Data for Pokémon with order ${i} could not be retrieved.`);
       }
    }
+}
+
+function renderPokeCardsHTML() {
+   return `
+   <div class="pokemon-card ${pokeType}">
+      <div class="card-name-id-wrapper">
+      <div class="poke-name">${pokeName}</div>
+      <div class="poke-id">${formattedId}</div>
+      </div>
+      <div class="poke-pic-wrapper">
+         <img class="poke-pic" src="${pokePic}" alt="${pokeName}">
+      </div>
+      <div class="poke-type-wrapper">
+         <div class="${pokeType} poke-type">${pokeType}</div>
+         ${pokeType2 ? `<div class="${pokeType2} poke-type">${pokeType2}</div>` : ""}
+      </div>
+   </div>
+   `;
 }
 
 function getPokeInformationCard(data) {
