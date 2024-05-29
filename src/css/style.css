@@ -6,6 +6,29 @@ body {
    font-size: 1.15rem;
 }
 
+.unscrollable {
+   overflow: hidden;
+}
+
+.blured {
+   filter: blur(3px);
+}
+
+/* width */
+::-webkit-scrollbar {
+   width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+   box-shadow: inset 0 0 5px grey;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+   background: rgba(255, 0, 0, 0.418);
+}
+
 .background {
    position: fixed;
    top: 0;
@@ -81,23 +104,90 @@ header {
 
 .poke-pu-wrapper {
    height: 80%;
-   width: 80%;
-   background-color: rgba(0, 0, 0, 0.815);
+   max-width: 40vw;
+   margin: -20px;
+   background-color: rgba(0, 0, 0, 0.397);
    position: relative;
    border-radius: 15px;
-   .close-icon {
-      position: absolute;
-      top: 0;
-      right: 0;
-      height: 5vh;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+
+   .poke-pu-pic {
+      height: 300px;
+
       aspect-ratio: 1/1;
-      filter: invert(0.5);
-      cursor: pointer;
-      transition: filter 100ms ease-in;
-      &:hover {
-         filter: invert(1);
-      }
+      object-fit: contain;
+      margin-bottom: 5%;
    }
+}
+
+.poke-pu-information-wrapper {
+   background-color: rgba(255, 255, 255, 0.301);
+   border-radius: 15px;
+   height: 100%;
+   padding-top: 5%;
+   padding: 5% 2%;
+   display: flex;
+   flex-direction: column;
+   flex-wrap: wrap;
+   align-items: center;
+   position: relative;
+   .poke-type-wrapper {
+      position: absolute;
+      top: -18px;
+      display: flex;
+      gap: 0.5vw;
+      justify-content: center;
+      margin-bottom: 2vh;
+      width: 100%;
+   }
+   .poke-type {
+      padding: 1vh 2vw;
+      font-size: 1.2rem;
+      border-radius: 15px;
+      text-align: center;
+   }
+   .flavor-text {
+      word-wrap: break-word;
+      font-size: 1.5rem;
+      width: 80%;
+   }
+}
+
+.close-icon {
+   position: absolute;
+   top: 1%;
+   right: 1%;
+   height: 5vh;
+   aspect-ratio: 1/1;
+   opacity: 0.8;
+   cursor: pointer;
+   transition: filter 100ms ease-in;
+   &:hover {
+      opacity: 1;
+   }
+}
+
+.arrow-icon {
+   height: 5vh;
+   position: absolute;
+   top: 20vh;
+   z-index: 1000;
+   cursor: pointer;
+   transition: transform 100ms ease-in;
+   &:hover {
+      transform: translateX(2px);
+   }
+}
+
+.arrow-left {
+   rotate: 180deg;
+   left: 2%;
+}
+
+.arrow-right {
+   right: 2%;
 }
 
 /* ----------
@@ -119,7 +209,6 @@ header {
    flex-direction: column;
    border-radius: 15px;
    width: 25vw;
-
    opacity: 1;
    transition: filter 300ms ease-in-out, transform 100ms ease-in;
    position: relative;
@@ -169,7 +258,6 @@ header {
       display: flex;
       flex-direction: column;
       gap: 0.5vw;
-
       align-items: center;
       width: 100%;
       padding: 1vh 2vw;
@@ -247,6 +335,70 @@ header {
 
 .fairy {
    background-color: rgba(238, 153, 238, 0.5); /* Hellrosa für Fee */
+}
+
+.normalPU {
+   background-color: rgba(168, 168, 120, 0.9); /* Grau für Normal */
+}
+
+.firePU {
+   background-color: rgba(240, 128, 48, 0.9); /* Rot für Feuer */
+}
+
+.waterPU {
+   background-color: rgba(104, 144, 240, 0.9); /* Blau für Wasser */
+}
+
+.electricPU {
+   background-color: rgba(248, 208, 48, 0.9); /* Gelb für Elektro */
+}
+
+.grassPU {
+   background-color: rgba(120, 200, 80, 0.9); /* Grün für Pflanzen */
+}
+
+.flyingPU {
+   background-color: rgba(168, 144, 240, 0.9); /* Hellblau für Flug */
+}
+
+.bugPU {
+   background-color: rgba(168, 184, 32, 0.9); /* Grün für Käfer */
+}
+
+.poisonPU {
+   background-color: rgba(160, 64, 160, 0.9); /* Lila für Gift */
+}
+
+.rockPU {
+   background-color: rgba(184, 160, 56, 0.9); /* Beige für Gestein */
+}
+
+.groundPU {
+   background-color: rgba(224, 192, 104, 0.9); /* Braun für Boden */
+}
+
+.fightingPU {
+   background-color: rgba(192, 48, 40, 0.9); /* Braun für Kampf */
+}
+
+.icePU {
+   background-color: rgba(152, 216, 216, 0.9); /* Hellblau für Eis */
+}
+
+.psychicPU {
+   background-color: rgba(248, 88, 136, 0.9); /* Rosa für Psycho */
+}
+
+.ghostPU {
+   background-color: rgba(112, 88, 152, 0.9); /* Lila für Geist */
+}
+
+.dragonPU {
+   background-color: rgba(112, 56, 248, 0.9); /* Violett für Drache */
+}
+
+.fairyPU {
+   background-color: rgba(238, 153, 238, 0.9); /* Hellrosa für Fee */
 }
 
 footer {
