@@ -1,4 +1,10 @@
 const contentContainer = document.getElementById("contentContainer");
+let pokeName;
+let pokeId;
+let pokePic;
+let pokeType;
+let pokeType2;
+let formattedId;
 
 async function getData(pokeOrder) {
    const url = `https://pokeapi.co/api/v2/pokemon/${pokeOrder}/`;
@@ -20,22 +26,8 @@ async function getAllData() {
       const data = await getData(i);
       console.log(data);
       if (data) {
-         let pokeName = capitalizeFirstLetter(data.forms[0].name);
-         let pokeId = data.id; // Keep pokeId as a number initially
-         let pokePic = data.sprites.other.dream_world.front_default;
-         let pokeType = data.types[0].type.name;
-         let pokeType2 = data.types[1] ? data.types[1].type.name : null;
-
+         getPokeInformationCard(data);
          // Determine the format of the ID without converting to a string
-         let formattedId;
-         if (pokeId < 10) {
-            formattedId = `#00${pokeId}`;
-         } else if (pokeId < 100) {
-            formattedId = `#0${pokeId}`;
-         } else {
-            formattedId = `#${pokeId}`;
-         }
-
          // Display the Pokémon card with one or two types
          contentContainer.innerHTML += `
          <div class="pokemon-card ${pokeType}">
@@ -57,6 +49,28 @@ async function getAllData() {
       }
    }
 }
+
+function getPokeInformationCard(data) {
+   pokeName = capitalizeFirstLetter(data.forms[0].name);
+   pokeId = data.id; // Keep pokeId as a number initially
+   formatePokeId();
+   pokePic = data.sprites.other.dream_world.front_default;
+   pokeType = data.types[0].type.name;
+   pokeType2 = data.types[1] ? data.types[1].type.name : null;
+   return;
+}
+
+function formatePokeId() {
+   if (pokeId < 10) {
+      formattedId = `#00${pokeId}`;
+   } else if (pokeId < 100) {
+      formattedId = `#0${pokeId}`;
+   } else {
+      formattedId = `#${pokeId}`;
+   }
+   return formattedId;
+}
+
 function capitalizeFirstLetter(string) {
    return string.charAt(0).toUpperCase() + string.slice(1);
 }
