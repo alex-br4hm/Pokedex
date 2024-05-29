@@ -1,8 +1,22 @@
 body {
    margin: 0;
-   background-color: #222;
-   color: antiquewhite;
+   background-color: #14000d;
+   color: rgb(250, 235, 215);
    font-family: sans-serif;
+   font-size: 1.15rem;
+}
+
+.background {
+   position: fixed;
+   top: 0;
+
+   img {
+      height: 100vh;
+      width: 100vw;
+      object-fit: cover;
+      object-position: top;
+      filter: grayscale(0.9) opacity(0.2);
+   }
 }
 
 header {
@@ -19,26 +33,32 @@ header {
    margin-top: 1vh;
    margin-bottom: 1vh;
    justify-content: start;
+   .pokedex-lettering {
+      width: 75%;
+   }
 }
 
 .input-wrapper {
    display: flex;
    width: 100%;
    justify-content: center;
-   margin-right: 15vw;
+   margin-right: 21.5vw;
    input {
-      background-color: transparent;
+      background-color: #33333375;
       border: none;
-      border-radius: 2px;
-      box-shadow: 0px 0px 2px antiquewhite;
+      border-radius: 8px;
+      box-shadow: 0px 0px 5px antiquewhite;
       padding: 1rem 2rem;
-      color: rgba(250, 235, 215, 0.808);
+      color: rgb(250, 235, 215);
       font-size: 1.2rem;
-      transition: all 150ms ease-in;
+      transition: all 100ms ease-in;
+      &::placeholder {
+         color: rgb(250, 235, 215);
+      }
       &:focus {
          outline: none;
-         box-shadow: 0px 0px 3px antiquewhite;
-         border-radius: 8px;
+         box-shadow: 0px 0px 6px antiquewhite;
+         border-radius: 2px;
       }
    }
 }
@@ -54,103 +74,138 @@ header {
 .pokemon-card {
    display: flex;
    align-items: center;
-   justify-content: center;
+   justify-content: start;
    flex-direction: column;
    border-radius: 15px;
-   width: 20vw;
+   width: 25vw;
+
    opacity: 1;
-   transition: opacity 300ms ease-in-out, transform 100ms ease-in;
+   transition: filter 300ms ease-in-out, transform 100ms ease-in;
    position: relative;
    cursor: pointer;
-   border: 3px solid white;
+   border: 5px solid rgba(255, 255, 255, 0.301);
+   margin: -5px;
    &:hover {
-      opacity: 1;
-      transform: scale(105%);
+      transform: scale(102%);
+      filter: brightness(115%);
+   }
+
+   .card-name-id-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 90%;
    }
    .poke-name {
       font-weight: bold;
       width: 100%;
-      text-align: center;
+      text-align: start;
       padding-bottom: 5%;
       padding-top: 5%;
-      font-size: 1.5rem;
+
+      width: fit-content;
+
+      font-size: 2rem;
    }
    .poke-pic-wrapper {
-      /* border: 5px solid rgba(255, 255, 255, 0.301); */
+      border-top: 5px solid rgba(255, 255, 255, 0.301);
+      border-bottom: 5px solid rgba(255, 255, 255, 0.301);
       width: 90%;
+      margin-bottom: 2vh;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.342);
    }
    .poke-pic {
       height: 30vh;
       width: 100%;
       transition: all 200ms ease-in-out;
       &:hover {
-         transform: rotate(10deg) scale(110%);
+         transform: rotate(5deg) scale(130%);
       }
+   }
+
+   .poke-type-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5vw;
+
+      align-items: center;
+      width: 100%;
+      padding: 1vh 2vw;
+      margin-bottom: 2vh;
+   }
+   .poke-type {
+      padding: 1vh 2vw;
+      font-size: 1.5rem;
+      border-radius: 15px;
+      min-width: 25%;
+      max-width: 25%;
+      text-align: center;
    }
 }
 
 .normal {
-   background-color: #a8a878; /* Grau für Normal */
+   background-color: rgba(168, 168, 120, 0.5); /* Grau für Normal */
 }
 
 .fire {
-   background-color: #f08030; /* Rot für Feuer */
+   background-color: rgba(240, 128, 48, 0.5); /* Rot für Feuer */
 }
 
 .water {
-   background-color: #6890f0; /* Blau für Wasser */
+   background-color: rgba(104, 144, 240, 0.5); /* Blau für Wasser */
 }
 
 .electric {
-   background-color: #f8d030; /* Gelb für Elektro */
+   background-color: rgba(248, 208, 48, 0.5); /* Gelb für Elektro */
 }
 
 .grass {
-   background-color: #78c850; /* Grün für Pflanzen */
+   background-color: rgba(120, 200, 80, 0.5); /* Grün für Pflanzen */
 }
 
 .flying {
-   background-color: #a890f0; /* Hellblau für Flug */
+   background-color: rgba(168, 144, 240, 0.5); /* Hellblau für Flug */
 }
 
 .bug {
-   background-color: #a8b820; /* Grün für Käfer */
+   background-color: rgba(168, 184, 32, 0.5); /* Grün für Käfer */
 }
 
 .poison {
-   background-color: #a040a0; /* Lila für Gift */
+   background-color: rgba(160, 64, 160, 0.5); /* Lila für Gift */
 }
 
 .rock {
-   background-color: #b8a038; /* Beige für Gestein */
+   background-color: rgba(184, 160, 56, 0.5); /* Beige für Gestein */
 }
 
 .ground {
-   background-color: #e0c068; /* Braun für Boden */
+   background-color: rgba(224, 192, 104, 0.5); /* Braun für Boden */
 }
 
 .fighting {
-   background-color: #c03028; /* Braun für Kampf */
+   background-color: rgba(192, 48, 40, 0.5); /* Braun für Kampf */
 }
 
 .ice {
-   background-color: #98d8d8; /* Hellblau für Eis */
+   background-color: rgba(152, 216, 216, 0.5); /* Hellblau für Eis */
 }
 
 .psychic {
-   background-color: #f85888; /* Rosa für Psycho */
+   background-color: rgba(248, 88, 136, 0.5); /* Rosa für Psycho */
 }
 
 .ghost {
-   background-color: #705898; /* Lila für Geist */
+   background-color: rgba(112, 88, 152, 0.5); /* Lila für Geist */
 }
 
 .dragon {
-   background-color: #7038f8; /* Violett für Drache */
+   background-color: rgba(112, 56, 248, 0.5); /* Violett für Drache */
 }
 
 .fairy {
-   background-color: #ee99ee; /* Hellrosa für Fee */
+   background-color: rgba(238, 153, 238, 0.5); /* Hellrosa für Fee */
 }
 
 footer {
@@ -163,10 +218,19 @@ footer {
    font-size: 0.9rem;
    display: flex;
    justify-content: space-between;
+   align-items: center;
    cursor: pointer;
    a {
       color: inherit;
       margin-right: 3vw;
       text-decoration: none;
+      border: 1px solid white;
+      border-radius: 15px;
+      padding: 0.5% 1%;
+      transition: all 100ms ease-in-out;
+      &:hover {
+         background-color: rgb(250, 235, 215);
+         color: #333;
+      }
    }
 }
