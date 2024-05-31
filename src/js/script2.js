@@ -192,21 +192,27 @@ async function getFirstFlavorText(pokemonOrder) {
 function checkScrollPosition() {
    let scrollPositionY = window.scrollY;
    let viewportHeight = window.innerHeight;
+   var documentHeight = document.documentElement.scrollHeight;
    let targetElement = document.getElementById("arrowUp");
    if (scrollPositionY > viewportHeight / 2) {
       targetElement.classList.remove("d-none");
    } else {
       targetElement.classList.add("d-none");
    }
+   if (scrollPositionY > 1000 && viewportHeight + scrollPositionY >= documentHeight) {
+      loadMoreData();
+   }
 }
 
 window.addEventListener("scroll", checkScrollPosition);
+
 checkScrollPosition();
+
 let loadingText = document.getElementById("loadingText");
 let dots = 0;
 setTimeout(() => {
    loadingText.textContent = "IT'S WILD DATA!";
-}, 3000);
+}, 2500);
 setTimeout(() => {
    loadingText.textContent = "I will try to catch it!";
-}, 6000);
+}, 5000);
