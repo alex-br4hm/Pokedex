@@ -6,10 +6,19 @@
       <title>Pokedèx</title>
       <link rel="shortcut icon" href="./src/assets/img/favicon.png" type="image/x-icon" />
       <link rel="stylesheet" href="./src/css/style.css" />
-      <script src="./src/js/script.js" defer></script>
+      <script src="./src/js/script2.js" defer></script>
    </head>
    <body onload="getAllData()">
-      <div class="background" id="background"><img src="./src/assets/img/bg.png" alt="" /></div>
+      <div class="background" id="background">
+         <img class="background-image" src="./src/assets/img/bg.png" alt="" />
+      </div>
+
+      <div class="loading-ball-wrapper" id="loadingBallWrapper">
+         <img src="src/assets/img/loading.gif" />
+         <span id="loadingText">I hear something in the grass.</span>
+      </div>
+
+      <!-- https://devonkong.tumblr.com/ ANIMATION FROM -->
 
       <header id="header">
          <div class="headline-logo-wrapper">
