@@ -43,6 +43,7 @@ async function getAllData() {
 
 function renderPokeCardsHTML(i) {
    return `
+   
    <div class="pokemon-card ${pokeType}" onclick="openPopUp(${i})">
       <div class="card-name-id-wrapper">
       <div class="poke-name">${pokeName}</div>
@@ -151,7 +152,7 @@ async function getFirstFlavorText(pokemonOrder) {
       const data = await response.json();
       const flavorTextEntries = data.flavor_text_entries;
       if (flavorTextEntries && flavorTextEntries.length > 0) {
-         const firstFlavorText = flavorTextEntries[0].flavor_text;
+         const firstFlavorText = flavorTextEntries[3].flavor_text;
          console.log(firstFlavorText);
          return firstFlavorText;
       } else {
@@ -164,3 +165,19 @@ async function getFirstFlavorText(pokemonOrder) {
 }
 
 // getFirstFlavorText(1);
+
+function checkScrollPosition() {
+   let scrollPositionY = window.scrollY;
+   let viewportHeight = window.innerHeight;
+   let targetElement = document.getElementById("arrowUp");
+
+   if (scrollPositionY > viewportHeight / 2) {
+      targetElement.classList.remove("d-none");
+   } else {
+      targetElement.classList.add("d-none");
+   }
+}
+
+window.addEventListener("scroll", checkScrollPosition);
+// initial check
+checkScrollPosition();

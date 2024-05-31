@@ -9,8 +9,9 @@
       <script src="./src/js/script.js" defer></script>
    </head>
    <body onload="getAllData()">
-      <div class="background"><img src="./src/assets/img/bg.png" alt="" /></div>
-      <header>
+      <div class="background" id="background"><img src="./src/assets/img/bg.png" alt="" /></div>
+
+      <header id="header">
          <div class="headline-logo-wrapper">
             <img src="./src/assets/img/favicon.png" alt="" />
             <img class="pokedex-lettering" src="./src/assets/img/pokedexs.webp" alt="" />
@@ -38,7 +39,11 @@
 
       <footer>
          <div>&copy; 2024 - Alexander Haehnlein</div>
-         <a target="_blank" href="https://pokeapi.co/">PokeAPI</a>
+         <a class="api-link" target="_blank" href="https://pokeapi.co/">PokeAPI</a>
+
+         <a id="arrowUp" class="arrow-up-wrapper" href="#header"
+            ><img class="arrow-icon arrow-up" src="./src/assets/img/arrow_icon.png" alt=""
+         /></a>
       </footer>
    </body>
 </html>

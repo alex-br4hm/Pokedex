@@ -1,3 +1,7 @@
+* {
+   scroll-behavior: smooth;
+}
+
 body {
    margin: 0;
    background-color: #14000d;
@@ -249,6 +253,7 @@ header {
       height: 30vh;
       width: 100%;
       transition: all 200ms ease-in-out;
+      filter: drop-shadow(2px 2px 6px black);
       &:hover {
          transform: rotate(5deg) scale(130%);
       }
@@ -413,7 +418,7 @@ footer {
    justify-content: space-between;
    align-items: center;
    cursor: pointer;
-   a {
+   .api-link {
       color: inherit;
       margin-right: 3vw;
       text-decoration: none;
@@ -426,6 +431,30 @@ footer {
          color: #333;
       }
    }
+}
+
+.arrow-up-wrapper {
+   position: absolute;
+   top: -120%;
+   right: 3%;
+   border: none;
+   padding: 20%;
+   padding-left: 100%;
+   transition: all 200ms ease-in-out;
+   &:hover {
+      border: none;
+   }
+}
+
+.arrow-up {
+   position: absolute;
+   top: 0;
+   right: 1.5%;
+   rotate: 270deg;
+   background-color: rgba(0, 0, 0, 0.5);
+   border-radius: 50%;
+   padding: 0.35%;
+   padding-left: 0.5%;
 }
 
 .d-none {
