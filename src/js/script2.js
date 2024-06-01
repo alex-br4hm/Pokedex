@@ -3,6 +3,8 @@ const popUpContainer = document.getElementById("popUpContainer");
 let arrowLeft = document.getElementById("arrowLeft");
 let arrowRight = document.getElementById("arrowRight");
 let pokeData = [];
+let isAllDataLoaded = false;
+let popUpPokemonId;
 
 async function getData(pokeOrder) {
    const url = `https://pokeapi.co/api/v2/pokemon/${pokeOrder}/`;
@@ -33,6 +35,21 @@ async function getAllData() {
    renderPokeCards();
 }
 
+async function loadMoreData() {
+   isAllDataLoaded = true;
+   startLoadingDataScreen();
+   for (let i = 51; i <= 151; i++) {
+      const data = await getData(i);
+      if (data) {
+         getPokeInformations(data);
+      } else {
+         console.log(`Data for Pokémon with order ${i} could not be retrieved.`);
+      }
+   }
+   stopLoadingDataScreen();
+   renderPokeCards();
+}
+
 function stepLeftOrRight(direction, i) {
    if (direction == "right") {
       i++;
@@ -43,12 +60,25 @@ function stepLeftOrRight(direction, i) {
    }
 }
 
+function startLoadingDataScreen() {
+   let loadingBall = document.getElementById("loadingBallWrapper");
+   loadingBall.classList.remove("d-none");
+   loadingText.textContent = "WHATS THAT?";
+   setTimeout(() => {
+      loadingText.textContent = "There is more wild Data.";
+   }, 3000);
+   setTimeout(() => {
+      loadingText.textContent = "I'll try to catch that too!";
+   }, 6000);
+}
+
 function stopLoadingDataScreen() {
    let loadingBall = document.getElementById("loadingBallWrapper");
    loadingBall.classList.add("d-none");
 }
 
 function renderPokeCards() {
+   contentContainer.innerHTML = "";
    for (let i = 0; i < pokeData.length; i++) {
       contentContainer.innerHTML += ` ${renderPokeCardsHTML(i)}
       `;
@@ -71,6 +101,15 @@ function renderPokeCardsHTML(i) {
       </div>
    </div>
    `;
+}
+
+function searchPokemon() {
+   let userInput = document.getElementById("userSearchInput").value.toLowerCase();
+   let allMatches = [];
+   if (userInput.length > 1) {
+      allMatches = pokeData.filter((pokemon) => pokemon.name.toLowerCase().includes(userInput));
+      console.log(allMatches);
+   }
 }
 
 function getPokeInformations(data) {
@@ -105,6 +144,7 @@ function capitalizeFirstLetter(string) {
 }
 
 async function openPopUp(i) {
+   popUpPokemonId = i;
    await renderPopUpContainer(i);
    popUpContainer.classList.remove("d-none");
    document.body.classList.add("unscrollable");
@@ -184,7 +224,7 @@ async function getFirstFlavorText(pokemonOrder) {
       const flavorTextEntries = data.flavor_text_entries;
       if (flavorTextEntries && flavorTextEntries.length > 0) {
          const firstFlavorText = flavorTextEntries[3].flavor_text;
-         console.log(firstFlavorText);
+
          return firstFlavorText;
       } else {
          console.log("No flavor text entries found.");
@@ -207,20 +247,36 @@ function checkScrollPosition() {
    } else {
       targetElement.classList.add("d-none");
    }
-   if (scrollPositionY > 1000 && viewportHeight + scrollPositionY >= documentHeight) {
+   if (scrollPositionY > 1000 && viewportHeight + scrollPositionY >= documentHeight && isAllDataLoaded === false) {
       loadMoreData();
    }
 }
 
 window.addEventListener("scroll", checkScrollPosition);
-
 checkScrollPosition();
 
 let loadingText = document.getElementById("loadingText");
-let dots = 0;
 setTimeout(() => {
    loadingText.textContent = "IT'S WILD DATA!";
 }, 2500);
 setTimeout(() => {
    loadingText.textContent = "I will try to catch it!";
 }, 5000);
+
+window.addEventListener("keydown", function (event) {
+   if (event.key === "ArrowLeft") {
+      if (popUpPokemonId > 0) {
+         popUpPokemonId--;
+         stepLeftOrRight("left", popUpPokemonId + 1);
+      }
+   }
+});
+
+window.addEventListener("keydown", function (event) {
+   if (event.key === "ArrowRight") {
+      if (popUpPokemonId < pokeData.length - 1) {
+         popUpPokemonId++;
+         stepLeftOrRight("right", popUpPokemonId - 1);
+      }
+   }
+});
