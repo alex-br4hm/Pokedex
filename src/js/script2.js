@@ -117,6 +117,14 @@ function closePopUp() {
    popUpContainer.classList.add("d-none");
 }
 
+window.addEventListener("click", function (event) {
+   if (event.target === popUpContainer) {
+      document.body.classList.remove("unscrollable");
+      contentContainer.classList.remove("blured");
+      popUpContainer.classList.add("d-none");
+   }
+});
+
 async function getMoreInformation(i) {
    pokeText = await getFirstFlavorText(i + 1);
    pokeText = pokeText.replace(/[\n\f]/g, " ");

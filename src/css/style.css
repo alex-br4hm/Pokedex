@@ -164,7 +164,7 @@ header {
    display: flex;
    flex-direction: column;
    align-items: center;
-
+   z-index: 2;
    .poke-pu-pic {
       height: 300px;
       aspect-ratio: 1/1;
