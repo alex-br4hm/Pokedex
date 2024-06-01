@@ -72,7 +72,7 @@ img {
       border-radius: 25px;
    }
    span {
-      margin-top: 5%;
+      margin-bottom: 5%;
       color: white;
       font-family: monospace;
       font-size: 2rem;
@@ -115,9 +115,12 @@ header {
 
 .input-wrapper {
    display: flex;
+   flex-direction: column;
+   align-items: center;
    width: 100%;
    justify-content: center;
    margin-right: 21.5vw;
+   position: relative;
    input {
       background-color: #33333375;
       border: none;
@@ -134,6 +137,25 @@ header {
          outline: none;
          box-shadow: 0px 0px 6px antiquewhite;
          border-radius: 2px;
+      }
+   }
+   .suggestions-wrapper {
+      position: absolute;
+      top: 70px;
+      left: 12vw;
+      display: flex;
+      flex-direction: column;
+      gap: 1vh;
+      z-index: 10;
+      width: 50%;
+
+      .suggestion {
+         border-bottom: 1px solid white;
+         width: 100%;
+         background-color: black;
+         &:nth-child(odd) {
+            background-color: rgba(0, 0, 0, 0.459);
+         }
       }
    }
 }
@@ -405,7 +427,7 @@ header {
 }
 
 .electricPU {
-   background-color: rgba(248, 208, 48, 0.9); /* Gelb für Elektro */
+   background-color: rgba(206, 171, 33, 0.9); /* Gelb für Elektro */
 }
 
 .grassPU {
