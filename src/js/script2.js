@@ -25,8 +25,9 @@ function getAllDatasDummy() {}
 async function getAllData() {
    for (let i = 1; i <= 50; i++) {
       const data = await getData(i);
+
       if (data) {
-         getPokeInformations(data);
+         getPokeInformations(data, i);
       } else {
          console.log(`Data for Pokémon with order ${i} could not be retrieved.`);
       }
@@ -105,19 +106,41 @@ function renderPokeCardsHTML(i) {
 
 function searchPokemon() {
    let userInput = document.getElementById("userSearchInput").value.toLowerCase();
+   let suggestionsWrapper = document.getElementById("suggestionsWrapper");
    let allMatches = [];
    if (userInput.length > 1) {
+      if (allMatches.length != 0) {
+         document.body.classList.add("unscrollable");
+         contentContainer.classList.add("blured");
+      }
+
+      suggestionsWrapper.innerHTML = "";
       allMatches = pokeData.filter((pokemon) => pokemon.name.toLowerCase().includes(userInput));
       console.log(allMatches);
+      for (let i = 0; i < 5; i++) {
+         suggestionsWrapper.innerHTML += `
+         <div class="suggestion ${allMatches[i].maintype}" onclick="openPopUp(${allMatches[i].listposition})">${allMatches[i].name}<img src="${allMatches[i].picture}" alt=""></div>
+         `;
+      }
+   } else {
+      document.body.classList.remove("unscrollable");
+      contentContainer.classList.remove("blured");
+      suggestionsWrapper.innerHTML = "";
    }
 }
 
-function getPokeInformations(data) {
+let listPostion = 0;
+
+async function getPokeInformations(data, i) {
+   const germanName = await getGermanName(i);
+   console.log(germanName);
    pokeName = capitalizeFirstLetter(data.forms[0].name);
    pokeId = data.id;
    pokeData.push({
       "name": capitalizeFirstLetter(data.forms[0].name),
+      "ger_name": germanName,
       "id": formatePokeId(),
+      "listposition": listPostion++,
       "picture": data.sprites.other.dream_world.front_default,
       "maintype": data.types[0].type.name,
       "subtype": data.types[1] ? data.types[1].type.name : null,
@@ -224,12 +247,28 @@ async function getFirstFlavorText(pokemonOrder) {
       const flavorTextEntries = data.flavor_text_entries;
       if (flavorTextEntries && flavorTextEntries.length > 0) {
          const firstFlavorText = flavorTextEntries[3].flavor_text;
-
          return firstFlavorText;
       } else {
          console.log("No flavor text entries found.");
          return null;
       }
+   } catch (error) {
+      console.error("Error fetching data:", error);
+   }
+}
+
+async function getGermanName(pokemonOrder) {
+   const url = `https://pokeapi.co/api/v2/pokemon-species/${pokemonOrder}/`;
+   try {
+      const response = await fetch(url);
+      if (!response.ok) {
+         throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      const LanguageEntries = data.names;
+      // console.log(LanguageEntries);
+      const germanName = LanguageEntries[5].name;
+      // console.log(germanName);
    } catch (error) {
       console.error("Error fetching data:", error);
    }
