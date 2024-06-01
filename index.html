@@ -14,8 +14,8 @@
       </div>
 
       <div class="loading-ball-wrapper" id="loadingBallWrapper">
-         <img src="src/assets/img/loading.gif" />
          <span id="loadingText">I hear something in the grass.</span>
+         <img src="src/assets/img/loading.gif" />
       </div>
 
       <!-- https://devonkong.tumblr.com/ ANIMATION FROM -->
@@ -26,24 +26,23 @@
             <img class="pokedex-lettering" src="./src/assets/img/pokedexs.webp" alt="" />
          </div>
          <div class="input-wrapper">
-            <input type="text" class="search-bar" placeholder="search . . ." />
+            <input
+               oninput="searchPokemon()"
+               type="text"
+               class="search-bar"
+               placeholder="search . . ."
+               id="userSearchInput"
+            />
+            <div class="suggestions-wrapper">
+               <div class="suggestion">glumanda</div>
+               <div class="suggestion">shiggy</div>
+               <div class="suggestion">bisasam</div>
+            </div>
          </div>
       </header>
 
       <!-- CONTENT -->
-      <div class="pop-up-content d-none" id="popUpContainer">
-         <!-- <div class="poke-pu-wrapper">
-            <img class="close-icon" src="./src/assets/img/close_icon.png" alt="" />
-            <div class="stats">HP: 10</div>
-            <div class="stats">Attack: 100</div>
-            <div class="stats">Defense: 88</div>
-            <div class="stats">Speed: 235</div>
-            <img src="" alt="" />
-            <div class="flavor-text">
-               A strange seed was planted on its back at birth. The plant sprouts and grows with this POKéMON.
-            </div>
-         </div> -->
-      </div>
+      <div class="pop-up-content d-none" id="popUpContainer"></div>
       <div class="content-container" id="contentContainer"></div>
 
       <footer>
