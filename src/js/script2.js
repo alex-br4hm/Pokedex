@@ -5,6 +5,7 @@ let arrowRight = document.getElementById("arrowRight");
 let pokeData = [];
 let isAllDataLoaded = false;
 let popUpPokemonId;
+let listPostion = 0;
 
 async function getData(pokeOrder) {
    const url = `https://pokeapi.co/api/v2/pokemon/${pokeOrder}/`;
@@ -14,6 +15,7 @@ async function getData(pokeOrder) {
          throw new Error(`Error: ${response.status}`);
       }
       const data = await response.json();
+
       return data;
    } catch (error) {
       console.error(error);
@@ -42,7 +44,7 @@ async function loadMoreData() {
    for (let i = 51; i <= 151; i++) {
       const data = await getData(i);
       if (data) {
-         getPokeInformations(data);
+         getPokeInformations(data, i);
       } else {
          console.log(`Data for Pokémon with order ${i} could not be retrieved.`);
       }
@@ -104,23 +106,26 @@ function renderPokeCardsHTML(i) {
    `;
 }
 
+let allMatches = [];
+
 function searchPokemon() {
-   let userInput = document.getElementById("userSearchInput").value.toLowerCase();
    let suggestionsWrapper = document.getElementById("suggestionsWrapper");
-   let allMatches = [];
+   let userInput = document.getElementById("userSearchInput").value.toLowerCase();
    if (userInput.length > 1) {
+      suggestionsWrapper.innerHTML = "";
+      filterByUserInput(userInput);
       if (allMatches.length != 0) {
          document.body.classList.add("unscrollable");
          contentContainer.classList.add("blured");
-      }
 
-      suggestionsWrapper.innerHTML = "";
-      allMatches = pokeData.filter((pokemon) => pokemon.name.toLowerCase().includes(userInput));
-      console.log(allMatches);
-      for (let i = 0; i < 5; i++) {
-         suggestionsWrapper.innerHTML += `
-         <div class="suggestion ${allMatches[i].maintype}" onclick="openPopUp(${allMatches[i].listposition})">${allMatches[i].name}<img src="${allMatches[i].picture}" alt=""></div>
-         `;
+         for (let i = 0; i < Math.min(allMatches.length, 5); i++) {
+            suggestionsWrapper.innerHTML += `
+            <div class="suggestion ${allMatches[i].maintype}" onclick="openPopUp(${allMatches[i].listposition})">${allMatches[i].name}<img src="${allMatches[i].picture}" alt=""></div>
+            `;
+         }
+      } else {
+         document.getElementById("userSearchInput").value = "";
+         alert("No Pokemon could be found.");
       }
    } else {
       document.body.classList.remove("unscrollable");
@@ -129,15 +134,22 @@ function searchPokemon() {
    }
 }
 
-let listPostion = 0;
+function filterByUserInput(userInput) {
+   allMatches = pokeData.filter(
+      (pokemon) =>
+         pokemon.name.toLowerCase().includes(userInput.toLowerCase()) ||
+         pokemon.ger_name.toLowerCase().includes(userInput.toLowerCase())
+   );
+   return allMatches;
+}
 
 async function getPokeInformations(data, i) {
    const germanName = await getGermanName(i);
-   console.log(germanName);
+
    pokeName = capitalizeFirstLetter(data.forms[0].name);
    pokeId = data.id;
    pokeData.push({
-      "name": capitalizeFirstLetter(data.forms[0].name),
+      "name": capitalizeFirstLetter(data.name),
       "ger_name": germanName,
       "id": formatePokeId(),
       "listposition": listPostion++,
@@ -227,6 +239,7 @@ async function renderPopUpContainer(i) {
                 <div class="flavor-text">
                     ${pokeText}
                 </div>
+                <div ></div>
                 <div class="stats">HP: ${pokeData[i].hp}</div>
                 <div class="stats">Attack: ${pokeData[i].attack}</div>
                 <div class="stats">Defense: ${pokeData[i].defense}</div>
@@ -268,7 +281,7 @@ async function getGermanName(pokemonOrder) {
       const LanguageEntries = data.names;
       // console.log(LanguageEntries);
       const germanName = LanguageEntries[5].name;
-      // console.log(germanName);
+      return germanName;
    } catch (error) {
       console.error("Error fetching data:", error);
    }
