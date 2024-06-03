@@ -24,7 +24,7 @@ img {
 
 /* width */
 ::-webkit-scrollbar {
-   width: 40px;
+   width: 30px;
 }
 
 /* Track */
@@ -36,7 +36,6 @@ img {
 ::-webkit-scrollbar-thumb {
    background: rgba(255, 0, 0, 0.418);
    background: url(../assets/img/Gengar.webp) no-repeat;
-
    background-size: contain;
 }
 
@@ -217,9 +216,12 @@ header {
 .poke-pu-information-wrapper {
    background-color: rgba(255, 255, 255, 0.301);
    border-radius: 15px;
+   border-top-left-radius: 100px;
+   border-top-right-radius: 100px;
    height: 35%;
    padding-top: 5%;
    padding: 5% 2%;
+
    display: flex;
    flex-direction: column;
    flex-wrap: wrap;
@@ -550,4 +552,25 @@ footer {
 
 .d-none {
    display: none !important;
+}
+
+@media (max-width: 1520px) {
+   .pokemon-card {
+      width: 25vw;
+   }
+}
+
+@media (max-width: 1024px) {
+   ::-webkit-scrollbar {
+      width: 20px;
+   }
+   .pokemon-card {
+      width: 38vw;
+   }
+}
+
+@media (max-width: 800px) {
+   .pokemon-card {
+      width: 80vw;
+   }
 }
