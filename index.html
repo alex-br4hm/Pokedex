@@ -6,23 +6,29 @@
       <title>Pokedèx</title>
       <link rel="shortcut icon" href="./src/assets/img/favicon.png" type="image/x-icon" />
       <link rel="stylesheet" href="./src/css/style.css" />
+      <script src="./src/js/templatesHTML.js" defer></script>
+      <script src="./src/js/chart.js"></script>
+      <script src="./src/js/helperFunctions.js"></script>
       <script src="./src/js/script2.js" defer></script>
+
+      <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+      <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels" defer></script>
    </head>
    <body onload="getAllData()">
       <div class="background" id="background">
-         <img class="background-image" src="./src/assets/img/bg.png" alt="" />
+         <img class="background-image" src="./src/assets/img/bg.png" alt="" id="bgImage" />
       </div>
 
       <div class="loading-ball-wrapper" id="loadingBallWrapper">
-         <span id="loadingText">I hear something in the grass.</span>
+         <span id="loadingText">catch some wild data in the high grass</span>
          <img src="src/assets/img/loading.gif" />
       </div>
 
-      <!-- https://devonkong.tumblr.com/ ANIMATION FROM -->
+      <!--  ANIMATION FROM -->
 
       <header id="header">
          <div class="headline-logo-wrapper">
-            <img src="./src/assets/img/favicon.png" alt="" />
+            <img class="poke-ball" src="./src/assets/img/favicon.png" alt="" />
             <img class="pokedex-lettering" src="./src/assets/img/pokedexs.webp" alt="" />
          </div>
          <div class="input-wrapper">
@@ -42,12 +48,12 @@
       <!-- CONTENT -->
       <div class="pop-up-content d-none" id="popUpContainer"></div>
       <div class="content-container" id="contentContainer"></div>
-
-      <footer>
+      <div class="credits-container d-none" id="creditsContainer"></div>
+      <footer id="footer">
          <div>&copy; 2024 - Alexander Haehnlein</div>
-         <a class="api-link" target="_blank" href="https://pokeapi.co/">PokeAPI</a>
+         <div class="api-link" onclick="openCredits()">credits</div>
 
-         <a id="arrowUp" class="arrow-up-wrapper" href="#header"
+         <a id="arrowUp" class="arrow-up-wrapper d-none" href="#header"
             ><img class="arrow-icon arrow-up" src="./src/assets/img/arrow_icon.png" alt=""
          /></a>
       </footer>
