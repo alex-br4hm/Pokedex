@@ -3,13 +3,14 @@ const popUpContainer = document.getElementById("popUpContainer");
 const arrowLeft = document.getElementById("arrowLeft");
 const arrowRight = document.getElementById("arrowRight");
 const suggestionsWrapper = document.getElementById("suggestionsWrapper");
+const userInputBar = document.getElementById("userSearchInput");
 let pokeData = [];
 let isAllDataLoaded = false;
 let popUpPokemonId;
 let listPostion = 0;
 let allMatches = [];
 
-async function getData(pokeOrder) {
+async function fetchData(pokeOrder) {
    try {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeOrder}/`);
       if (!response.ok) {
@@ -22,13 +23,13 @@ async function getData(pokeOrder) {
    }
 }
 
-async function getAllData() {
+async function getPokeData() {
    const totalPokemons = 151;
    const batchSize = 50;
    for (let i = 1; i <= totalPokemons; i += batchSize) {
       const batchPromises = [];
       for (let j = i; j < Math.min(i + batchSize, totalPokemons + 1); j++) {
-         batchPromises.push(getData(j));
+         batchPromises.push(fetchData(j));
       }
       try {
          const batchResults = await Promise.all(batchPromises);
@@ -145,16 +146,19 @@ async function getPokeInformations(data, i) {
 
 function openPopUp(i) {
    suggestionsWrapper.classList.add("d-none");
+   clearUserInput();
    renderPopUpContainer(i);
    popUpContainer.classList.remove("d-none");
    document.body.classList.add("unscrollable");
    contentContainer.classList.add("blured");
+   contentContainer.classList.add("space-to-right");
 }
 
 function closePopUp() {
    document.body.classList.remove("unscrollable");
    contentContainer.classList.remove("blured");
    popUpContainer.classList.add("d-none");
+   contentContainer.classList.remove("space-to-right");
 }
 
 async function renderPopUpContainer(i) {

@@ -10,11 +10,10 @@
       <script src="./src/js/chart.js"></script>
       <script src="./src/js/helperFunctions.js"></script>
       <script src="./src/js/script2.js" defer></script>
-
       <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
       <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels" defer></script>
    </head>
-   <body onload="getAllData()">
+   <body onload="getPokeData()">
       <div class="background" id="background">
          <img class="background-image" src="./src/assets/img/bg.png" alt="" id="bgImage" />
       </div>
@@ -41,6 +40,7 @@
                autocomplete="off"
                spellcheck="false"
             />
+            <img src="./src/assets/img/close_icon.png" alt="" class="input-close-btn" />
             <div class="suggestions-wrapper" id="suggestionsWrapper"></div>
          </div>
       </header>

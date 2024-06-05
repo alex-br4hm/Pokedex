@@ -4,7 +4,8 @@ function checkScrollPosition() {
    let arrowUp = document.getElementById("arrowUp");
    if (scrollPositionY > viewportHeight / 2) {
       arrowUp.classList.remove("d-none");
-   } else {
+   }
+   if (scrollPositionY < viewportHeight / 2 && arrowUp) {
       arrowUp.classList.add("d-none");
    }
 }
@@ -75,7 +76,49 @@ window.addEventListener("click", function (event) {
 });
 
 window.addEventListener("click", function (event) {
-   if (event.target != suggestionsWrapper) {
+   if (event.target != suggestionsWrapper && event.target != userInputBar) {
       suggestionsWrapper.classList.add("d-none");
+      clearUserInput();
+   }
+});
+
+function clearUserInput() {
+   let userInput = document.getElementById("userSearchInput");
+   userInput.value = "";
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+   const children = suggestionsWrapper.getElementsByClassName("suggestion");
+   let currentIndex = -1;
+
+   document.addEventListener("keydown", function (event) {
+      if (event.key === "ArrowDown") {
+         if (currentIndex < children.length - 1) {
+            currentIndex++;
+            updateSelection();
+         }
+      } else if (event.key === "ArrowUp") {
+         if (currentIndex > 0) {
+            currentIndex--;
+            updateSelection();
+         }
+      } else if (event.key === "Enter") {
+         if (currentIndex >= 0 && currentIndex < children.length) {
+            performAction(children[currentIndex]);
+         }
+      }
+   });
+
+   function updateSelection() {
+      for (let i = 0; i < children.length; i++) {
+         children[i].classList.remove("selected");
+      }
+      if (currentIndex >= 0) {
+         children[currentIndex].classList.add("selected");
+      }
+   }
+
+   function performAction(selectedElement) {
+      alert("noch nicht implementiert :(");
    }
 });

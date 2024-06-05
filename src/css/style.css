@@ -18,6 +18,10 @@ body {
    filter: blur(3px);
 }
 
+.space-to-right {
+   margin-right: 6.5vw !important;
+}
+
 img {
    user-select: none;
 }
@@ -62,7 +66,7 @@ img {
    height: 100vh;
    width: 100%;
    background-color: rgba(0, 0, 0, 0.822);
-   z-index: 1;
+   z-index: 1000;
    display: flex;
    align-items: center;
    justify-content: center;
@@ -103,11 +107,27 @@ header {
 .input-wrapper {
    display: flex;
    flex-direction: column;
-   align-items: center;
+   align-items: end;
    width: 100%;
-   justify-content: center;
+   justify-content: end;
    margin-right: 21.5vw;
    position: relative;
+   .input-close-btn {
+      position: absolute;
+      top: 12px;
+      right: 8px;
+      z-index: 11;
+      height: 1.15rem;
+      padding: 4px;
+      background-color: rgba(255, 255, 255, 0.185);
+      border-radius: 50%;
+      transition: all 100ms ease-in;
+      &:hover {
+         cursor: pointer;
+         background-color: rgba(255, 255, 255, 0.274);
+      }
+   }
+
    input {
       background-color: #333333b6;
       border: none;
@@ -118,6 +138,8 @@ header {
       color: rgb(250, 235, 215);
       font-size: 1.2rem;
       transition: all 100ms ease-in;
+      position: relative;
+      z-index: 10;
       &::placeholder {
          color: rgb(250, 235, 215);
       }
@@ -154,6 +176,7 @@ header {
       &:first-child {
          border-top: none;
       }
+
       &:last-child {
          border-bottom: none;
       }
@@ -162,13 +185,16 @@ header {
       }
 
       img {
-         height: 100%;
-         width: fit-content;
+         height: 80px;
+         width: 80px;
          transition: all 100ms ease-in-out;
          &:hover {
             transform: scale(110%);
          }
       }
+   }
+   .selected {
+      filter: brightness(150%);
    }
 }
 
@@ -625,15 +651,18 @@ footer {
 }
 
 .credits-container {
-   position: relative;
+   position: absolute;
+   top: 0;
    z-index: 1000;
    display: flex;
    flex-direction: column;
    align-items: center;
    justify-content: center;
-   height: 80vh;
+   height: 100vh;
    background-color: rgba(255, 255, 255, 0.651);
    color: black;
+   padding: 0 10%;
+   text-align: center;
    a {
       color: #333;
       text-decoration: none;
@@ -693,7 +722,13 @@ footer {
       justify-content: end;
       margin-right: 3vw;
       position: relative;
+      .input-close-btn {
+         margin-right: 9%;
+      }
       input {
+         margin-right: 9%;
+      }
+      .suggestions-wrapper {
          margin-right: 9%;
       }
    }
@@ -782,17 +817,20 @@ footer {
       align-items: center;
       margin-right: 0;
       position: relative;
+      .input-close-btn {
+         right: 8%;
+      }
       input {
-         width: 80%;
+         width: 300px;
          margin: 0;
          margin-bottom: 10%;
       }
-   }
-   .suggestions-wrapper {
-      z-index: 10;
-      width: 92%;
-      .suggestion {
-         font-size: 1.15rem;
+      .suggestions-wrapper {
+         width: 364px;
+         margin: 0;
+         .suggestion {
+            font-size: 1.15rem;
+         }
       }
    }
 
@@ -813,22 +851,57 @@ footer {
    }
 }
 
+@media (max-width: 500px) {
+   .input-wrapper {
+      .input-close-btn {
+         right: 5%;
+      }
+   }
+}
+
+@media (max-width: 460px) {
+   .input-wrapper {
+      .input-close-btn {
+         right: 3%;
+      }
+   }
+}
+
+@media (max-width: 430px) {
+   .input-wrapper {
+      .input-close-btn {
+         right: 0;
+      }
+   }
+}
+
 @media (max-width: 400px) {
    .input-wrapper {
       align-items: center;
       margin-right: 0;
       position: relative;
+      .input-close-btn {
+         right: 10%;
+      }
       input {
-         width: 66%;
+         width: 200px;
          margin-bottom: 10%;
       }
+      .suggestions-wrapper {
+         width: 264px;
+      }
    }
-   .suggestions-wrapper {
-      z-index: 10;
-      width: 83%;
-   }
+
    .poke-pu-wrapper {
       width: 100vw;
       height: 90vh;
+   }
+}
+
+@media (max-width: 360px) {
+   .input-wrapper {
+      .input-close-btn {
+         right: 5%;
+      }
    }
 }
