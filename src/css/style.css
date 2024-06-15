@@ -631,6 +631,18 @@ footer {
          color: #333;
       }
    }
+
+   .impr-link {
+      color: rgba(255, 255, 255, 0.504);
+      text-decoration: none;
+      transition: all 150ms ease-in;
+      border-left: 1px solid rgba(255, 255, 255, 0.504);
+      padding-left: 0.5rem;
+      margin-left: 0.25rem;
+      &:hover {
+         color: rgba(255, 255, 255, 0.802);
+      }
+   }
 }
 
 .arrow-up-wrapper {
