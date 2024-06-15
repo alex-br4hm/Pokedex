@@ -22,6 +22,8 @@ This project is a simple web application that allows users to browse through the
 
 - **JavaScript**: The primary programming language used to build the application.
 - **PokéAPI**: A RESTful API that provides access to Pokémon data.
+- **HTML**: Provides the structure of the app.
+- **CSS**: Used for styling the app and ensuring a responsive design.
 
 ## License
 
