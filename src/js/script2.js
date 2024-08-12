@@ -30,20 +30,18 @@ async function buildPokeData() {
    });
  
    const intervalId = setInterval(() => {
-      if (pokeData.length== 151) {
+      if (pokeData.length == 151) {
       pokeData.sort((a, b) => a.id_number - b.id_number);
       renderPokeCards();
+      stopLoadingDataScreen();
       clearInterval(intervalId);
       }
    }, 100);
 }
 
 function renderPokeCards() {
-   stopLoadingDataScreen();
-   console.log(pokeData.length)
    contentContainer.innerHTML = "";
    for (let i = 0; i < pokeData.length; i++) {
-      console.log('he');
       contentContainer.innerHTML += ` ${renderPokeCardsHTML(i)}
       `;
    }
