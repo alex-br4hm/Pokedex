@@ -632,6 +632,43 @@ footer {
       color: #333;
     }
   }
+
+  .impr-link {
+    color: rgba(255, 255, 255, 0.504);
+    text-decoration: none;
+    transition: all 150ms ease-in;
+    border-left: 1px solid rgba(255, 255, 255, 0.504);
+    padding-left: 0.5rem;
+    margin-left: 0.25rem;
+    &:hover {
+      color: rgba(255, 255, 255, 0.802);
+    }
+  }
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: #22222260;
+  width: 100%;
+  padding: 1%;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  .api-link {
+    color: inherit;
+    margin-right: 3vw;
+    text-decoration: none;
+    border: 1px solid white;
+    border-radius: 15px;
+    padding: 0.5% 1%;
+    transition: all 100ms ease-in-out;
+    &:hover {
+      background-color: rgb(250, 235, 215);
+      color: #333;
+    }
+  }
 }
 
 .arrow-up-wrapper {

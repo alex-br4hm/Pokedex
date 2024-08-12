@@ -158,9 +158,10 @@ async function getPokemonSpeciesInfo(pokemonId) {
 
 
 function openPopUp(i) {
-   suggestionsWrapper.classList.add("d-none");
+   popUpPokemonId = i;
    clearUserInput();
    renderPopUpContainer(i);
+   suggestionsWrapper.classList.add("d-none");
    popUpContainer.classList.remove("d-none");
    document.body.classList.add("unscrollable");
    contentContainer.classList.add("blured");
