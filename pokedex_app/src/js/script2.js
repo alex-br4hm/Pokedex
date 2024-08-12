@@ -20,36 +20,27 @@ async function fetchPokeData() {
       fetch(pokemon.url).then((response) => response.json())
    );
    allPokeData = await Promise.all(pokemonDetailsPromises);
-   buildPokeData();
-   
+   makePokemons();
 }
 
-async function buildPokeData() {
-    allPokeData.forEach((_, index) => {
-       getPokeInformations(allPokeData, index);  
+function makePokemons() {
+   allPokeData.forEach((_, index) => {
+      getPokeInformations(allPokeData, index);
    });
- 
-   const intervalId = setInterval(() => {
-      if (pokeData.length== 151) {
-      pokeData.sort((a, b) => a.id_number - b.id_number);
-      renderPokeCards();
-      clearInterval(intervalId);
-      }
-   }, 100);
+   renderPokeCards();
 }
 
 function renderPokeCards() {
    stopLoadingDataScreen();
-   console.log(pokeData.length)
+   // pokeData.sort((a, b) => a.id_number - b.id_number);
    contentContainer.innerHTML = "";
    for (let i = 0; i < pokeData.length; i++) {
-      console.log('he');
       contentContainer.innerHTML += ` ${renderPokeCardsHTML(i)}
       `;
    }
 }
 
-function stepLeftOrRight(direction, i) {   
+function stepLeftOrRight(direction, i) {
    if (direction == "right") {
       i++;
       renderPopUpContainer(i);
@@ -103,13 +94,10 @@ async function getPokeInformations(data, i) {
       // const flavorText = info.flavorText;
       // const germanName = info.germanName;
       // pokeName = capitalizeFirstLetter(data.forms[0].name);
-
-      let speciesInfo = await getPokemonSpeciesInfo(data[i].id);
-
       pokeId = data[i].id;
       pokeData.push({
          "name": data[i].name,
-         "ger_name": speciesInfo.germanName,
+         "ger_name": "germanName",
          "id_number": pokeId,
          "id": formatePokeId(),
          "listposition": listPostion++,
@@ -122,40 +110,72 @@ async function getPokeInformations(data, i) {
          "special_attack": data[i].stats[3].base_stat,
          "special_defense": data[i].stats[4].base_stat,
          "speed": data[i].stats[5].base_stat,
-         "flavor_text": formateFlavorText(speciesInfo.flavorText),
+         // "flavor_text": formateFlavorText(flavorText),
       });
    } catch (error) {
       console.error("Fehler beim Abrufen der Pokémon-Informationen:", error);
    }
 }
 
-async function getPokemonSpeciesInfo(pokemonId) {
-   const speciesUrl = `https://pokeapi.co/api/v2/pokemon-species/${pokemonId}/`;
-   try {
-       const response = await fetch(speciesUrl);
-       if (!response.ok) {
-           throw new Error(`HTTP error! Status: ${response.status}`);
-       }
-       const data = await response.json();
-       const flavorTextEntries = data.flavor_text_entries;
-       const flavorText = flavorTextEntries.find(entry => entry.language.name === "en")?.flavor_text || "";
-       const germanNameEntry = data.names.find(entry => entry.language.name === "de");
-       const germanName = germanNameEntry ? germanNameEntry.name : "";
+// async function getPokemonInfo(pokemonUrl) {
+//    const response = await fetch(pokemonUrl);
+//    const data = await response.json();
+//    const speciesUrl = data.species.url;
+//    const speciesResponse = await fetch(speciesUrl);
+//    const speciesData = await speciesResponse.json();
+//    const flavorTextEntries = speciesData.flavor_text_entries;
+//    const germanName = speciesData.names.find((entry) => entry.language.name === "de").name;
+//    return {
+//       data,
+//       flavorText: flavorTextEntries[3].flavor_text,
+//       germanName,
+//    };
+// }
 
-       return {
-           flavorText,
-           germanName,
-       };
-   } catch (error) {
-       console.error("Fehler beim Abrufen der Pokémon-Species-Informationen:", error);
-       return {
-           flavorText: "",
-           germanName: "",
-       };
-   }
-}
+// async function getPokemonInfo(pokemonOrder) {
+//    const url = `https://pokeapi.co/api/v2/pokemon-species/${pokemonOrder}/`;
+//    try {
+//       const response = await fetch(url);
+//       if (!response.ok) {
+//          throw new Error(`HTTP error! Status: ${response.status}`);
+//       }
+//       const data = await response.json();
+//       const flavorTextEntries = data.flavor_text_entries;
+//       const germanName = data.names.find((entry) => entry.language.name === "de").name;
+//       return { flavorText: flavorTextEntries[3].flavor_text, germanName };
+//    } catch (error) {
+//       console.error("Error fetching data:", error);
+//    }
+// }
 
-
+// async function getPokeInformationss(data, i) {
+//    try {
+//       const info = await getPokemonInfo(i);
+//       const flavorText = info.flavorText;
+//       const germanName = info.germanName;
+//       pokeName = capitalizeFirstLetter(data.forms[0].name);
+//       pokeId = data.id;
+//       pokeData.push({
+//          "name": capitalizeFirstLetter(data.name),
+//          "ger_name": germanName,
+//          "id_number": pokeId,
+//          "id": formatePokeId(),
+//          "listposition": listPostion++,
+//          "picture": data.sprites.other.dream_world.front_default,
+//          "maintype": data.types[0].type.name,
+//          "subtype": data.types[1] ? data.types[1].type.name : null,
+//          "hp": data.stats[0].base_stat,
+//          "attack": data.stats[1].base_stat,
+//          "defense": data.stats[2].base_stat,
+//          "special_attack": data.stats[3].base_stat,
+//          "special_defense": data.stats[4].base_stat,
+//          "speed": data.stats[5].base_stat,
+//          "flavor_text": formateFlavorText(flavorText),
+//       });
+//    } catch (error) {
+//       console.error("Fehler beim Abrufen der Pokémon-Informationen:", error);
+//    }
+// }
 
 function openPopUp(i) {
    suggestionsWrapper.classList.add("d-none");
@@ -176,7 +196,6 @@ function closePopUp() {
 
 async function renderPopUpContainer(i) {
    popUpContainer.innerHTML = "";
-   popUpPokemonId = pokeData[i].id_number - 1;
    let arrowLeftHTML = i > 0 ? renderArrowLeftHTML(i) : "";
    let arrowRightHTML = i < pokeData.length - 1 ? renderArrowRightHTML(i) : "";
    popUpContainer.innerHTML += renderPopUpContainerHTML(i, arrowLeftHTML, arrowRightHTML);

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Pokedèx</title>
+      <link rel="shortcut icon" href="./src/assets/img/favicon.png" type="image/x-icon" />
+      <link rel="stylesheet" href="./src/css/style.css" />
+      <script src="./src/js/templatesHTML.js" defer></script>
+      <script src="./src/js/chart.js"></script>
+      <script src="./src/js/helperFunctions.js"></script>
+      <script src="./src/js/script2.js" defer></script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+      <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels" defer></script>
+   </head>
+   <body onload="fetchPokeData()">
+      <div class="background" id="background">
+         <img class="background-image" src="./src/assets/img/bg.png" alt="" id="bgImage" />
+      </div>
+
+      <div class="loading-ball-wrapper" id="loadingBallWrapper">
+         <span id="loadingText">catch some wild data in the high grass</span>
+         <img src="src/assets/img/loading.gif" />
+      </div>
+
+      <!--  ANIMATION FROM -->
+
+      <header id="header">
+         <div class="headline-logo-wrapper">
+            <img class="poke-ball" src="./src/assets/img/favicon.png" alt="" />
+            <img class="pokedex-lettering" src="./src/assets/img/pokedexs.webp" alt="" />
+         </div>
+         <div class="input-wrapper">
+            <input
+               oninput="searchPokemon()"
+               type="text"
+               class="search-bar"
+               placeholder="search . . ."
+               id="userSearchInput"
+               autocomplete="off"
+               spellcheck="false"
+            />
+            <img src="./src/assets/img/close_icon.png" alt="" class="input-close-btn" />
+            <div class="suggestions-wrapper" id="suggestionsWrapper"></div>
+         </div>
+      </header>
+
+      <!-- CONTENT -->
+      <div class="pop-up-content d-none" id="popUpContainer"></div>
+      <div class="content-container" id="contentContainer"></div>
+      <div class="credits-container d-none" id="creditsContainer"></div>
+      <footer id="footer">
+         <div>&copy; 2024 - Alexander Haehnlein</div>
+         <div class="api-link" onclick="openCredits()">credits</div>
+
+         <a id="arrowUp" class="arrow-up-wrapper d-none" href="#header"
+            ><img class="arrow-icon arrow-up" src="./src/assets/img/arrow_icon.png" alt=""
+         /></a>
+      </footer>
+   </body>
+</html>

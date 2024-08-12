@@ -62,24 +62,13 @@ function renderPopUpContainerHTML(i, arrowLeftHTML, arrowRightHTML) {
 
 function openCreditsHTML() {
    return `
-
-      <div>Thanks to <a class="api-link" target="_blank" href="https://pokeapi.co/">PokeAPI</a> for the data.
-      </div>
-         <div>
+      <h2>Thanks to <a class="api-link" target="_blank" href="https://pokeapi.co/">PokeAPI</a> for the data.
+      </h2>
+         <h2>
           Thanks to <a class="api-link" target="_blank" href="https://devonkong.tumblr.com/">devonkong</a> for the gif
           of the loading-screen.
-          </div>
- 
-           
-     <div class="impressum">
-        <h2>Impressum</h2>
-        <div>Alexander Hähnlein</div>
-        <div>99894 Friedrichroda</div>
-        <div>Deutschland</div>
-        <div class="mail">dev@haehnlein-alexander.org</div>
-      </div>
-
-           <div class="go-back" onclick="goBackToMainPage()">Back to Mainpage</div>
+          </h2>
+      <div class="go-back" onclick="goBackToMainPage()">Back to Mainpage</div>
     `;
 }
 
