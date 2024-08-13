@@ -91,7 +91,8 @@ document.addEventListener("DOMContentLoaded", function () {
    const children = suggestionsWrapper.getElementsByClassName("suggestion");
    let currentIndex = -1;
 
-   document.addEventListener("keydown", function (event) {
+
+document.addEventListener("keydown", function (event) {
       if (event.key === "ArrowDown") {
          if (currentIndex < children.length - 1) {
             currentIndex++;

@@ -5,48 +5,68 @@ const arrowRight = document.getElementById("arrowRight");
 const suggestionsWrapper = document.getElementById("suggestionsWrapper");
 const userInputBar = document.getElementById("userSearchInput");
 let allPokeData = [];
-
 let pokeData = [];
-let isAllDataLoaded = false;
 let popUpPokemonId;
 let listPostion = 0;
 let allMatches = [];
 let pokeURL = "https://pokeapi.co/api/v2/pokemon?limit=151&offset=0";
 
+/**
+ * Fetches Pokémon data from the API in batches and processes it.
+ * @async
+ * @function
+ * @returns {Promise<void>}
+ */
 async function fetchPokeData() {
    let pokemonData = await fetch(pokeURL);
    let pokemonDataAsJson = await pokemonData.json();
-   let pokemonDetailsPromises = pokemonDataAsJson.results.map((pokemon) =>
-      fetch(pokemon.url).then((response) => response.json())
-   );
-   allPokeData = await Promise.all(pokemonDetailsPromises);
-   buildPokeData();
-   
-}
+   let batchedRequests = [];
+   const batchSize = 20; 
 
-async function buildPokeData() {
-    allPokeData.forEach((_, index) => {
-       getPokeInformations(allPokeData, index);  
-   });
- 
-   const intervalId = setInterval(() => {
-      if (pokeData.length == 151) {
-      pokeData.sort((a, b) => a.id_number - b.id_number);
-      renderPokeCards();
-      stopLoadingDataScreen();
-      clearInterval(intervalId);
-      }
-   }, 100);
-}
-
-function renderPokeCards() {
-   contentContainer.innerHTML = "";
-   for (let i = 0; i < pokeData.length; i++) {
-      contentContainer.innerHTML += ` ${renderPokeCardsHTML(i)}
-      `;
+   for (let i = 0; i < pokemonDataAsJson.results.length; i += batchSize) {
+       const batch = pokemonDataAsJson.results.slice(i, i + batchSize).map((pokemon) =>
+           fetch(pokemon.url).then((response) => response.json())
+       );
+       batchedRequests.push(...await Promise.all(batch));
    }
+
+   allPokeData = batchedRequests;
+   buildPokeData();
 }
 
+/**
+ * Processes all fetched Pokémon data and sorts it for rendering.
+ * @async
+ * @function
+ * @returns {Promise<void>}
+ */
+async function buildPokeData() {
+   const promises = allPokeData.map(async (_, index) => {
+       await getPokeInformations(allPokeData, index);
+   });
+
+   await Promise.all(promises);
+   
+   pokeData.sort((a, b) => a.id_number - b.id_number);
+   renderPokeCards();  
+}
+
+/**
+ * Renders the Pokémon cards into the content container.
+ * @function
+ */
+function renderPokeCards() {
+   stopLoadingDataScreen();
+   const html = pokeData.map((_, i) => renderPokeCardsHTML(i)).join('');
+   contentContainer.innerHTML = html;
+}
+
+/**
+ * Navigates the Pokémon details popup left or right.
+ * @function
+ * @param {string} direction - The direction to navigate ("left" or "right").
+ * @param {number} i - The current index of the Pokémon in the popup.
+ */
 function stepLeftOrRight(direction, i) {   
    if (direction == "right") {
       i++;
@@ -57,17 +77,29 @@ function stepLeftOrRight(direction, i) {
    }
 }
 
+/**
+ * Starts the loading screen animation.
+ * @function
+ */
 function startLoadingDataScreen() {
    let loadingBall = document.getElementById("loadingBallWrapper");
    loadingBall.classList.remove("d-none");
    loadingText.textContent = "catch more wild data in the high grass";
 }
 
+/**
+ * Stops the loading screen animation.
+ * @function
+ */
 function stopLoadingDataScreen() {
    let loadingBall = document.getElementById("loadingBallWrapper");
    loadingBall.classList.add("d-none");
 }
 
+/**
+ * Filters Pokémon based on user input and displays suggestions.
+ * @function
+ */
 function searchPokemon() {
    let userInput = document.getElementById("userSearchInput").value.toLowerCase();
    if (userInput.length > 1) {
@@ -86,6 +118,12 @@ function searchPokemon() {
    }
 }
 
+/**
+ * Filters the Pokémon data based on the user's input.
+ * @function
+ * @param {string} userInput - The user's input in the search bar.
+ * @returns {Array<Object>} The array of matched Pokémon.
+ */
 function filterByUserInput(userInput) {
    allMatches = pokeData.filter(
       (pokemon) =>
@@ -95,15 +133,17 @@ function filterByUserInput(userInput) {
    return allMatches;
 }
 
+/**
+ * Retrieves and processes specific Pokémon information from the API.
+ * @async
+ * @function
+ * @param {Array<Object>} data - The array of Pokémon data.
+ * @param {number} i - The index of the Pokémon in the data array.
+ * @returns {Promise<void>}
+ */
 async function getPokeInformations(data, i) {
    try {
-      // const info = await getPokemonInfo(i);
-      // const flavorText = info.flavorText;
-      // const germanName = info.germanName;
-      // pokeName = capitalizeFirstLetter(data.forms[0].name);
-
       let speciesInfo = await getPokemonSpeciesInfo(data[i].id);
-
       pokeId = data[i].id;
       pokeData.push({
          "name": data[i].name,
@@ -123,10 +163,17 @@ async function getPokeInformations(data, i) {
          "flavor_text": formateFlavorText(speciesInfo.flavorText),
       });
    } catch (error) {
-      console.error("Fehler beim Abrufen der Pokémon-Informationen:", error);
+      console.error("Error fetching Pokémon information:", error);
    }
 }
 
+/**
+ * Retrieves specific species information for a given Pokémon.
+ * @async
+ * @function
+ * @param {number} pokemonId - The ID of the Pokémon to fetch species information for.
+ * @returns {Promise<Object>} The species information including flavor text and German name.
+ */
 async function getPokemonSpeciesInfo(pokemonId) {
    const speciesUrl = `https://pokeapi.co/api/v2/pokemon-species/${pokemonId}/`;
    try {
@@ -145,7 +192,7 @@ async function getPokemonSpeciesInfo(pokemonId) {
            germanName,
        };
    } catch (error) {
-       console.error("Fehler beim Abrufen der Pokémon-Species-Informationen:", error);
+       console.error("Error fetching Pokémon species information:", error);
        return {
            flavorText: "",
            germanName: "",
@@ -153,8 +200,11 @@ async function getPokemonSpeciesInfo(pokemonId) {
    }
 }
 
-
-
+/**
+ * Opens the Pokémon details popup for the selected Pokémon.
+ * @function
+ * @param {number} i - The index of the Pokémon in the pokeData array.
+ */
 function openPopUp(i) {
    popUpPokemonId = i;
    clearUserInput();
@@ -166,6 +216,10 @@ function openPopUp(i) {
    contentContainer.classList.add("space-to-right");
 }
 
+/**
+ * Closes the Pokémon details popup.
+ * @function
+ */
 function closePopUp() {
    document.body.classList.remove("unscrollable");
    contentContainer.classList.remove("blured");
@@ -173,6 +227,13 @@ function closePopUp() {
    contentContainer.classList.remove("space-to-right");
 }
 
+/**
+ * Renders the content of the Pokémon details popup.
+ * @async
+ * @function
+ * @param {number} i - The index of the Pokémon in the pokeData array.
+ * @returns {Promise<void>}
+ */
 async function renderPopUpContainer(i) {
    popUpContainer.innerHTML = "";
    popUpPokemonId = pokeData[i].id_number - 1;
