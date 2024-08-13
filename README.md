@@ -25,6 +25,10 @@ This project is a simple web application that allows users to browse through the
 - **HTML**: Provides the structure of the app.
 - **CSS**: Used for styling the app and ensuring a responsive design.
 
+## Documentation
+
+You can find the full documentation here: [JSdoc](https://pokedex.haehnlein-alexander.org/out/index.html)
+
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
